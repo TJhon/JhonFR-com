@@ -1,0 +1,16 @@
+{
+  "hash": "0186843727c2295dcc1df92871754492",
+  "result": {
+    "markdown": "---\ntitle: \"About\"\n---\n\n\nAbout this site\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n\n::: {.cell-output .cell-output-stderr}\n```\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.1     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors\n```\n:::\n:::\n\n\nMucho texto\n\n\n::: {.cell}\n\n```{.r .cell-code}\na <- 12\nif(a == 12){\n  print(\"algoj\")\n  a <- a - 12\n}else{\n  warning(\"hola\")\n}\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] \"algoj\"\n```\n:::\n:::\n\n\nmuchostropeas fjadsfl qweopisadfoipqwe sdaifqweofaslf ajs oiwsalkdf asoidfw qesdaofiqwe sadklfjqwoe dsfasofiqwe oipaofiqw osadf oqwei saoifqwoie usadflj safiweqoutr asdlfjasfoiqweur askljd\n\n<aside>\ntexto adicional\n</aside>\n\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\nupdate text\n\n[This is a span that has the class aside which places it in the margin without a footnote number.]{.aside}\n\n\n::: {.cell .column-margin}\n\n```{.r .cell-code}\nlibrary(ggplot2)\nmtcars2 <- mtcars\nmtcars2$am <- factor(\n  mtcars$am, labels = c('automatic', 'manual')\n)\nggplot(mtcars2, aes(hp, mpg, color = am)) +\n  geom_point() +\n  geom_smooth(formula = y ~ x, method = \"loess\") +\n  theme(legend.position = 'bottom')\n```\n\n::: {.cell-output-display}\n![MPG vs horsepower, colored by transmission.](index_files/figure-html/fig-mtcars-1.png){#fig-mtcars width=672}\n:::\n:::\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

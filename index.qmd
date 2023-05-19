@@ -1,0 +1,77 @@
+---
+title: ""
+image: foto.png
+about:
+  template: trestles
+  id: hero-heading
+  links:
+    - icon: linkedin 
+      text: Linkedin 
+      href: https://www.linkedin.com/in/jhonk-fr/
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/JhonKevinFlore1
+    - icon: github
+      text: GitHub
+      href: https://github.com/tjhon
+listing: 
+  - id: recent-blog-listing
+    contents: 
+      - "blog/*/*.qmd"
+    sort: "date desc"
+    type: grid
+    max-items: 9
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+  - id: recent-project-listing
+    contents:
+      - "projects/*/*.qmd"
+      - "projects/*/*.md"
+    sort: "date desc"
+    type: grid
+    max-items: 9
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+    fields: [title, image, description, date]
+header-includes: >
+  <link rel="stylesheet" href="_assets/css/index.css">
+resources:
+  - _assets/css/index.css
+---
+
+::: {#hero-heading}
+::: h1
+👋 Hola
+:::
+
+::: lead
+Soy Jhon K. Flores Rojas, actualmente soy **Asistente de investigacón**, en [D2CML](https://d2cml-ai.github.io/d2cml.ai/) apoyando en temas **Causal Inference**, esto incluye creación de libros, modelos de machine learnign, visualización de datos, automatización y creacion de paquetes en diferentes lenguajes de programación.
+
+Gracias a ello reforcé mis conocimientos de **Python**, **R**, **Julia**, **Stata**, **Linux** y **Github Workflow**. Tambien tengo conocimientos de otras herramientas de analisis de datos, como **PowerBI**, **SQL**.
+:::
+:::
+
+## Sobre Mi
+
+Antes de trabajar en [D2CML](https://d2cml-ai.github.io/d2cml.ai/), me desempene como cientifico y analista de datos en RILECO SAC, donde tuve que procesar muchos datos del Perú. Tomando como experiencia las cotidianas actividades desarrolle la **libreria de R** con **WebScraping** [PeruData](https://github.com/TJhon/PeruDAta), la cual simplifica mucho la extraccion y limpieza de datos provenientes del INEI, BCRP y otras fuentes.
+
+### Un poco más sobre mí
+
+Me gradue de la Universidad Nacional Del Centro Del Peru siendo parte del décimo superior, fui becado por los cursos de Extensión Univesitaria de OSINERMIN XVII Y OSIPTEL XXV, ocupando los puestos 6to y 11vo respectivamente.
+
+Cree esta pagina para dar a conocer y compartir lo que aprendí y voy aprendiendo, en los temas de **Machine Learning**, **DataViz**, **WebScraping**, **GeoData** y otros.
+
+
+## Project
+
+::: {#recent-project-listing}
+:::
+
+## Blog
+
+::: {#recent-blog-listing}
+:::

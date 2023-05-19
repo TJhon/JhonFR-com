@@ -1,0 +1,13 @@
+title: "PeruData"
+description: "Easily data extract"
+image: PeruData.png
+image-width: 90%
+date: 2023-05-07
+categories: 
+  - Project
+tags: 
+  - R
+  - R package
+  - RStudio
+page: project
+show_post_thumbnail: true

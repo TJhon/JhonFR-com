@@ -1,0 +1,14 @@
+{
+  "hash": "f110f0bd76359b3185a8c11c54a3d781",
+  "result": {
+    "markdown": "---\ntitle: \"Samantha Csik\"\nabout: \n  template: trestles\n  image-shape: round\n  image-width: 23em\n  links:\n    - text: LinkedIn\n      href: https://www.linkedin.com/in/samanthacsik/\n    - text: Twitter\n      href: https://twitter.com/SamanthaCsik\n    - text: GitHub\n      href: https://github.com/samanthacsik\n    - text: Email\n      href: mailto:scsik@ucsb.edu\n---\n\n        \n# page content excluded for brevity ~\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

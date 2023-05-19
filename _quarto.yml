@@ -1,0 +1,78 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  favicon: "figs/jk.ico"
+  search: 
+    location: navbar
+    type: overlay
+  title: "Jhon K. Flores Rojas"
+  repo-url: https://github.com/tjhon/jhon
+  repo-actions:
+    - source
+    - edit
+    - issue
+  twitter-card:
+    creator: "@jhon"
+    site: "@jhon"
+  # open-graph: true
+  navbar:
+    title: Jhon K.
+    # background: light
+    right:
+      - icon: folder 
+        href: blog/index.qmd
+        text: Blog
+      - icon: palette
+        text: Data Viz
+        href: data_viz/index.qmd
+      - icon: terminal
+        text: projects
+        href: projects/index.qmd
+      - icon: github
+        href: https://github.com/tjhon
+    left:
+      - href: index.qmd
+        text: Home
+        icon: house
+      - icon: person-lines-fill
+        href: about/index.qmd
+        text: About
+  # reader-mode: true
+  page-footer:
+    border: false
+    background: light
+    left: >-
+      Jhon Flores Rojas 
+    center:
+      - icon: github
+      - icon: twitter
+      - icon: rss
+      - icon: linkedin
+      - icon: instagram
+format:
+  html:
+    link-external-newwindow: true
+    theme:
+      # dark:
+      - _assets/dark/dark-style.scss
+      - _assets/dark/dark-base.scss
+      - _assets/dark/colors.scss
+      # light:
+      #   - litera 
+      #   - _assets/dark/colors.scss
+      #   - _assets/dark/dark-base.scss
+      #   - _assets/light/light-style.scss
+    css: _assets/css/extras.css
+
+    # highlight-style:
+    # light: _assets/syntax-elm-light.theme
+    # dark: _assets/dark/dark.theme
+    code-block-bg: false
+    toc: true
+    page-layout: full
+
+editor: visual
+execute:
+  freeze: auto

@@ -1,0 +1,22 @@
+---
+title: Projects
+description: |
+  All (or most) of my projects
+
+listing:
+  contents: 
+    - "**/*.qmd"
+  type: grid
+  sort: "date desc"
+  categories: false
+  sort-ui: true
+  filter-ui: true
+  fields: 
+    - date
+    - title
+    - description
+    - image
+  grid-columns: 2
+  image-height: 33vmin
+title-block-banner: false
+---

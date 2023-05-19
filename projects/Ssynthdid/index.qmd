@@ -1,0 +1,160 @@
+---
+title: "Ssytndid"
+description: "Adaptation of the synthdid package for staggered adoptions, improving the implementation of the model in different contexts."
+image: synthdid.png
+image-width: 90%
+date: 2023-05-07
+categories: 
+  - Project
+  - R package
+  - Synthdid
+  - SSynthdid 
+tags: 
+  - R
+  - R package
+  - RStudio
+page: project
+---
+
+# The `synthdid` package - [Link](https://github.com/synth-inference/synthdid)
+
+This package implements the synthetic difference in difference estimator (SDID) for the average treatment effect in panel data, as proposed in Arkhangelsky et al (2019).
+
+
+
+## Basic Usage
+
+
+This library suggests the following steps: pass the database through the `panel.matrices()` function, which returns a list. The elements of the list are then passed through the `synthdid_estimate(Y, N0, T0)` function. If we want to introduce covariates, we need to take several additional steps. Here, I will simulate data from `1:nrow()` to observe the entire procedure.
+
+```{r}
+# remotes::install_github("synth-inference/synthdid")
+library(synthdid)
+library(tidyverse)
+```
+
+Let's observe the `califonia_prop99` database, which is a `data.frame`. 
+
+```{r}
+head(california_prop99) # NOt a tibble
+```
+
+Now, we pass it through the function and obtain the estimated value of the model.
+
+```{r}
+# Estimate the effect of California Proposition 99 on cigarette consumption
+setup = panel.matrices(california_prop99)
+tau.hat = synthdid_estimate(setup$Y, setup$N0, setup$T0)
+tau.hat
+```
+
+## Problems
+
+Everything is fine, but this library has some issues:
+  - Only works with `data.frames`.
+  - Doesn't yet work for staggered data.
+  - Adding covariates to the model means increasing the steps through intermediate functions to create the model.
+
+### Only works with `data.frames`.
+
+If we pass a `tibble`, we will encounter an error when using the `panel.matrices` function. 
+
+```{r}
+california_df <- as_tibble(california_prop99) 
+head(california_df)
+```
+
+To estimate, we would have to convert it to a `data.frame` (See Staggered Synthdid). 
+
+```{r, error=TRUE}
+setup <- panel.matrices(california_df, "State", "Year", "PacksPerCapita", "treated")
+```
+
+### Staggered Synthdid
+
+In this case, we are using the `quota` database.
+
+```{r}
+quota_dta <- "https://www.damianclarke.net/stata/quota_example.dta"
+quota_df <- quota_dta |> haven::read_dta()
+head(quota_df)
+```
+
+If we want to perform the estimation (see here the procedures for estimating a `tibble`), we will encounter an error.
+
+```{r, error = T}
+panel.matrices(quota_df, unit = "country", time = "year", outcome = "womparl", treatment = "quota")
+quota_df1 <- as.data.frame(quota_df)
+panel.matrices(quota_df1, unit = "country", time = "year", outcome = "womparl", treatment = "quota")
+```
+
+
+### Adding Covariates
+
+Finally, adding covariates to the model means increasing the steps through intermediate functions to create the model. In the case of a `tibble`, we have to convert it to a **wide data** format and transform it into a 3-dimensional matrix.
+
+```{r}
+california_prop99_cov <- mutate(california_prop99, cov = 1:n())
+x_cov <- california_prop99_cov |> dplyr::select(1, 2, cov) |> 
+  pivot_wider(names_from = "Year", values_from = "cov") |> 
+  dplyr::select(!State) |> 
+  as.matrix() |> 
+  abind::abind(along = 3)
+dim(x_cov)
+```
+
+
+```{r}
+setup <- panel.matrices(california_prop99, "State", "Year", "PacksPerCapita", "treated")
+synthdid::synthdid_estimate(
+    Y = setup$Y, 
+    N0 = setup$N0, 
+    T0 = setup$T0,
+    X = x_cov
+  )
+```
+
+
+# The Staggered Synthdid (`Ssynthdid`) - [Link](https://github.com/TJhon/ssynthdid)
+
+To solve this problem, the original package was adapted. The functions remain the same, with a small modification: before each function from the original package, there is an additional "s" at the beginning. In this case, we avoid passing the database through an auxiliary function.
+
+```{r}
+# remotes::install_github("tjhon/synthdid")
+library(ssynthdid)
+```
+
+### `tibbles` y `data.frames`
+
+For the first problem, let's consider that we have a `tibble` and a `data.frame.` If we pass them through the function, we obtain the same results in both cases, and the estimated value is identical to that of the original package.
+
+```{r}
+class(california_df); class(california_prop99)
+```
+
+```{r}
+ssynth_estimate(california_df, "State", "Year", "treated", "PacksPerCapita") |> glimpse()
+ssynth_estimate(california_prop99, "State", "Year", "treated", "PacksPerCapita") |> glimpse()
+```
+
+
+### Staggered Synthdid
+
+For the second problem, we will use the quota database and the `ssynthdid_estimate` function. This function takes care of finding the breakpoint, returns the estimated value for staggered adoptions, and stores the information in a `tibble.` The `tibble` contains information about the estimated value for each breakpoint, along with additional information.
+
+```{r}
+quota_dta <- "https://www.damianclarke.net/stata/quota_example.dta"
+quota_df <- quota_dta |> haven::read_dta()
+ssynth_estimate(quota_df, unit = "country", time = "year", outcome = "womparl", treated = "quota")
+```
+
+### Adding Covariates
+
+
+Finally, to estimate the model with covariates, we only need to include the `covariates` parameter in `ssynth_estimate(..., covariates = c(...))`. Note that it should be a vector, so even if it's a single element, it should be specified within `c()`. One last detail is that the columns of covariates should not have any `NA` values.
+
+```{r}
+ssynth_estimate(california_prop99_cov, "State", "Year", "treated", "PacksPerCapita", covariates = c("cov"))
+```
+
+
