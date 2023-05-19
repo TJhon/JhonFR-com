@@ -2,7 +2,8 @@
 title: "PeruData"
 description: "Easily data extract"
 image: PeruData.png
-image-width: 90%
+image-width: 80%
+image-height: 30%
 date: 2023-05-07
 categories: 
   - Project
@@ -16,7 +17,6 @@ page: project
 # show_post_thumbnail: true
 ---
 
-
 Carga, descarga y limpieza de datos de diferentes fuentes dentro del Perú
 
 # Datos
@@ -25,27 +25,27 @@ Carga, descarga y limpieza de datos de diferentes fuentes dentro del Perú
 
 ## Espaciales (`map_*_*`)
 
-Formato: 
+Formato:
 
-1. `map_`: Informacion geografica (archivos .shp o .sf) 
-2. Primer`*_`: Fuente información o referencia a que tipo de información geográfica
-3. Segundo `*_`: Nivel de información geografica
+1.  `map_`: Informacion geografica (archivos .shp o .sf)
+2.  Primer`*_`: Fuente información o referencia a que tipo de información geográfica
+3.  Segundo `*_`: Nivel de información geografica
 
 Datos:
 
 > Para `map_ana_*` (temporalmente no disponible), no cargar directamente el archivo sino filtar primero y guardarlo en un objeto (si su computadora no tiene mucha ram)
 
-- `map_peru_peru`: Límites geográficos del Perú
-- `map_peru_depa`: Límites geográficos a nivel departamental
-- `map_peru_prov`: Límites geográficos a nivel provincial
-- `map_peru_dist`: Límites geográficos a nivel distrital
-- `map_ana_cuencas`: Cuencas del Perú
-- `map_ana_microcuencas`: Microcuencas del Perú
+-   `map_peru_peru`: Límites geográficos del Perú
+-   `map_peru_depa`: Límites geográficos a nivel departamental
+-   `map_peru_prov`: Límites geográficos a nivel provincial
+-   `map_peru_dist`: Límites geográficos a nivel distrital
+-   `map_ana_cuencas`: Cuencas del Perú
+-   `map_ana_microcuencas`: Microcuencas del Perú
 
 ## Otros datos
 
-- `igp`: Información de terremotos en el Perú
-- `ubigeo_peru`: Ubigeo del Perú
+-   `igp`: Información de terremotos en el Perú
+-   `ubigeo_peru`: Ubigeo del Perú
 
 # Funciones
 
@@ -55,26 +55,22 @@ Datos:
 
 Formato `*_*()`
 
-1. Primer `*_`: Fuente de base de datos
-2. `*`: Indentificador de la función (puede ser subinformacion de la fuente de datos)
-3. `()`: Elementos identificadores
+1.  Primer `*_`: Fuente de base de datos
+2.  `*`: Indentificador de la función (puede ser subinformacion de la fuente de datos)
+3.  `()`: Elementos identificadores
 
-- `bcrp_get()`: Descarga y transforma los datos del BCRP (links) a un formato legible (`tidy`) 
-  - Se recomienda almacenar en un objeto
-- `inei_enaho()`:  Descarga y ordena los archivos principales (.dta, .csv, .sav) por modulos y años, en la siguiente direccion: "`enaho/solo-data`"
-- `inei_endes()`: Descarga y ordena los archivos principales (.csv, .sav) por modulos y años, en la siguiente direccion: "`endes/solo-data`"
+-   `bcrp_get()`: Descarga y transforma los datos del BCRP (links) a un formato legible (`tidy`)
+    -   Se recomienda almacenar en un objeto
+-   `inei_enaho()`: Descarga y ordena los archivos principales (.dta, .csv, .sav) por modulos y años, en la siguiente direccion: "`enaho/solo-data`"
+-   `inei_endes()`: Descarga y ordena los archivos principales (.csv, .sav) por modulos y años, en la siguiente direccion: "`endes/solo-data`"
 
-## Limpieza 
+## Limpieza
 
-
-- `clean_sf()`: Reduce y elimina caracteres espaciales del archivo (.shp, .geojson, .sf)
-- `get_centroid()`: Agrega 2 columnas (x, y) del posicionamiento del centroide de un archivo espacial
-- `bcrp_table()`: Funcion auxiliar para `bcrp_get()`
-- `enaho_clean()`: Para base de datos de Inei-enaho, limpieza de columnas como el formato de las mismas, ademas de colocar la informacion geografica (departamento, provincia, distrito)
-- `tidy_text()`: Funcion para eliminar characteres especiales del español y dar un formato adecuado a los `strings`
-
-
-
+-   `clean_sf()`: Reduce y elimina caracteres espaciales del archivo (.shp, .geojson, .sf)
+-   `get_centroid()`: Agrega 2 columnas (x, y) del posicionamiento del centroide de un archivo espacial
+-   `bcrp_table()`: Funcion auxiliar para `bcrp_get()`
+-   `enaho_clean()`: Para base de datos de Inei-enaho, limpieza de columnas como el formato de las mismas, ademas de colocar la informacion geografica (departamento, provincia, distrito)
+-   `tidy_text()`: Funcion para eliminar characteres especiales del español y dar un formato adecuado a los `strings`
 
 # Uso
 
@@ -86,35 +82,42 @@ library(PeruData)
 
 Resumen video
 
-  - [Version corta](https://www.youtube.com/watch?v=FBP0Ut5s3s0&list=PLDVZfi7ztrg4N2MWDdh5sdBsY02D-zvKZ&index=1)
-  - [Version larga](https://www.youtube.com/watch?v=dimWKO1IS4M&list=PLDVZfi7ztrg4N2MWDdh5sdBsY02D-zvKZ&index=2)
-  
+-   [Version corta](https://www.youtube.com/watch?v=FBP0Ut5s3s0&list=PLDVZfi7ztrg4N2MWDdh5sdBsY02D-zvKZ&index=1)
+-   [Version larga](https://www.youtube.com/watch?v=dimWKO1IS4M&list=PLDVZfi7ztrg4N2MWDdh5sdBsY02D-zvKZ&index=2)
+
 Contacto: [github.com/tjhon](https://github.com/TJhon)
 
 # Posteriormente
 
 <details>
-    <summary style = "color:blue">Click para mostrar</summary>
-- Inei
-  - Cenagro
-  - Censo
-  - ENAPRES
-- MINEDU
-  - Censo escolar
-  - Colegios del peru
-- MINSA
-  - Covid
-    - Cargar datos
-    - Actualizar datos (`julia-lang`)
-- MEF
-  - Consulta amigable, Python-selenium <span style="color:red">Error, not support to scrapping</span>.
+
+<summary style="color:blue">
+
+Click para mostrar
+
+</summary>
+
+-   Inei
+    -   Cenagro
+    -   Censo
+    -   ENAPRES
+-   MINEDU
+    -   Censo escolar
+    -   Colegios del peru
+-   MINSA
+    -   Covid
+        -   Cargar datos
+        -   Actualizar datos (`julia-lang`)
+-   MEF
+    -   Consulta amigable, Python-selenium [Error, not support to scrapping]{style="color:red"}.
 
 </details>
 
 # Ejemplo
 
 <details>
-    <summary>Ejemplo Pasado</summary>
+
+<summary>Ejemplo Pasado</summary>
 
 # `map_peru_*`
 
@@ -123,7 +126,6 @@ knitr::opts_chunk$set(
   cache = T
 )
 ```
-
 
 ## Departamentos
 
@@ -145,8 +147,6 @@ head(PeruData::map_peru_dist)
 
 ## Plots
 
-
-
 ```{r}
 library(ggplot2)
 library(PeruData)
@@ -163,7 +163,6 @@ fst_plot <- \(.map, .titl){
 }
 ```
 
-
 ```{r}
 depa <- fst_plot(map_peru_depa, "Departamentos")
 prov <- fst_plot(map_peru_prov, "Provincias")
@@ -174,9 +173,6 @@ dist <- fst_plot(map_peru_dist, "Distritos")
 library(patchwork)
 dist + (prov / depa)
 ```
-
-
-
 
 # Instituo Geofisico del Peru (IGP)
 
@@ -197,8 +193,5 @@ PeruData::inei_enaho(modulos, anios)
 ```{r eval = F}
 fs::dir_tree('enaho/solo-data')
 ```
-
-
-
 
 </details>

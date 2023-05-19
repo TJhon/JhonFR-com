@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-date','listing-title','listing-description','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -160,11 +160,11 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    </div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="PeruData">PeruData <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Project">Project <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R package">R package <span class="quarto-category-count">(2)</span></div><div class="category" data-category="SSynthdid">SSynthdid <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Synthdid">Synthdid <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -215,12 +215,12 @@ ul.task-list li input[type="checkbox"] {
       <input type="text" class="search form-control" placeholder="Filter">
     </div>
 </div>
-<div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="Project,R package,PeruData" data-listing-date-sort="1683435600000" data-listing-file-modified-sort="1683932669209" data-listing-reading-time-sort="2.325">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="Project,R package,PeruData" data-listing-date-sort="1683435600000" data-listing-file-modified-sort="1684528223035" data-listing-reading-time-sort="2.685">
 <a href="../projects/PeruData/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
+<div class="quarto-grid-item card h-100 card-center">
 <p class="card-img-top">
-<img src="../projects/PeruData/PeruData.png" class="thumbnail-image card-img" style="height: 33vmin;">
+<img src="../projects/PeruData/PeruData.png" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -240,9 +240,9 @@ May 7, 2023
 </div>
 <div class="g-col-1" data-index="1" data-categories="Project,R package,Synthdid,SSynthdid" data-listing-date-sort="1683435600000" data-listing-file-modified-sort="1684513796750" data-listing-reading-time-sort="3.115">
 <a href="../projects/Ssynthdid/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
+<div class="quarto-grid-item card h-100 card-center">
 <p class="card-img-top">
-<img src="../projects/Ssynthdid/synthdid.png" class="thumbnail-image card-img" style="height: 33vmin;">
+<img src="../projects/Ssynthdid/synthdid.png" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
