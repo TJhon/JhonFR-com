@@ -6,6 +6,22 @@
     ]
   },
   {
+    "listing": "/data_tidy/index.html",
+    "items": [
+      "/data_tidy/challenge1/index.html"
+    ]
+  },
+  {
+    "listing": "/data_viz/index.html",
+    "items": [
+      "/data_viz/MapChallenge/day5/day5.html",
+      "/data_viz/MapChallenge/day4/day4.html",
+      "/data_viz/MapChallenge/day3/day3.html",
+      "/data_viz/MapChallenge/day2/day2.html",
+      "/data_viz/MapChallenge/day1/day1.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/blog/test/index.html",

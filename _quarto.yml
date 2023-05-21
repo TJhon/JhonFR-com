@@ -4,7 +4,7 @@ project:
 
 website:
   favicon: "figs/jk.ico"
-  search: 
+  search:
     location: navbar
     type: overlay
   title: "Jhon K. Flores Rojas"
@@ -21,15 +21,18 @@ website:
     title: Jhon K.
     # background: light
     right:
-      - icon: folder 
+      - icon: folder
         href: blog/index.qmd
         text: Blog
       - icon: palette
         text: Data Viz
         href: data_viz/index.qmd
       - icon: terminal
-        text: projects
+        text: Projects
         href: projects/index.qmd
+      - icon: table
+        text: Tidy Data
+        href: data_tidy/index.qmd
       - icon: github
         href: https://github.com/tjhon
     left:
@@ -44,7 +47,7 @@ website:
     border: false
     background: light
     left: >-
-      Jhon Flores Rojas 
+      Jhon Flores Rojas
     center:
       - icon: github
       - icon: twitter
@@ -60,7 +63,7 @@ format:
       - _assets/dark/dark-base.scss
       - _assets/dark/colors.scss
       # light:
-      #   - litera 
+      #   - litera
       #   - _assets/dark/colors.scss
       #   - _assets/dark/dark-base.scss
       #   - _assets/light/light-style.scss

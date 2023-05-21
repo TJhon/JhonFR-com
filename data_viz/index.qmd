@@ -1,0 +1,36 @@
+---
+title: "Data Visualization"
+image: foto.png
+listing:
+  - id: MapChallenge
+    contents: 
+      - "MapChallenge/*/*.qmd"
+    sort: "date desc"
+    type: grid
+    max-items: 300
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+  - id: TidyTuesday
+    contents:
+      - "TidyTuesday/*/*.qmd"
+    sort: "date desc"
+    type: grid
+    max-items: 9
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+    fields: [title, image, description, date]
+---
+
+## 30 Day Map Challenge
+
+::: {#MapChallenge}
+:::
+
+## TidyTuesday
+
+::: {#TidyTuesday}
+:::

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Jhon K. Flores Rojas – index</title>
+<title>Jhon K. Flores Rojas - Data Visualization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,6 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../figs/jk.ico" rel="icon">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -59,12 +61,77 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-MapChallenge .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      page: 3,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-MapChallenge'] = new List('listing-MapChallenge', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-TidyTuesday .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-image','listing-description','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-TidyTuesday'] = new List('listing-TidyTuesday', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../_assets/css/extras.css">
+<meta name="twitter:title" content="Jhon K. Flores Rojas - Data Visualization">
+<meta name="twitter:image" content="foto.png">
+<meta name="twitter:creator" content="@jhon">
+<meta name="twitter:site" content="@jhon">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -105,7 +172,12 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="../projects/index.html"><i class="bi bi-terminal" role="img">
 </i> 
- <span class="menu-text">projects</span></a>
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data_tidy/index.html"><i class="bi bi-table" role="img">
+</i> 
+ <span class="menu-text">Tidy Data</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/tjhon"><i class="bi bi-github" role="img">
@@ -122,16 +194,188 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#day-map-challenge" id="toc-day-map-challenge" class="nav-link active" data-scroll-target="#day-map-challenge">30 Day Map Challenge</a></li>
+  <li><a href="#tidytuesday" id="toc-tidytuesday" class="nav-link" data-scroll-target="#tidytuesday">TidyTuesday</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/tjhon/jhon/blob/main/data_viz/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/tjhon/jhon/edit/main/data_viz/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/tjhon/jhon/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Visualization</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="day-map-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="day-map-challenge">30 Day Map Challenge</h2>
+<div id="listing-MapChallenge" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="R,Data Viz,sf,ggplot2" data-listing-date-sort="1659675600000" data-listing-file-modified-sort="1684628042726" data-listing-reading-time-sort="0.005">
+<a href="../data_viz/MapChallenge/day5/day5.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="../data_viz/MapChallenge/day5/day5.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Day 05
+</h5>
+<div class="card-text listing-description">
+Day 5 form #30 Day Map Challenge
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Aug 5, 2022
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="R,Data Viz,sf,ggplot2" data-listing-date-sort="1659589200000" data-listing-file-modified-sort="1684628051999" data-listing-reading-time-sort="2.88">
+<a href="../data_viz/MapChallenge/day4/day4.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="../data_viz/MapChallenge/day4/day4.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Day 04
+</h5>
+<div class="card-text listing-description">
+Day 4 form #30 Day Map Challenge
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Aug 4, 2022
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="R,Data Viz,sf,ggplot2" data-listing-date-sort="1659502800000" data-listing-file-modified-sort="1684626426111" data-listing-reading-time-sort="4.05">
+<a href="../data_viz/MapChallenge/day3/day3.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="../data_viz/MapChallenge/day3/day3.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Day 03
+</h5>
+<div class="card-text listing-description">
+Day 3 form #30 Day Map Challenge
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Aug 3, 2022
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="R,Data Viz,sf,ggplot2" data-listing-date-sort="1659416400000" data-listing-file-modified-sort="1684624744830" data-listing-reading-time-sort="2.855">
+<a href="../data_viz/MapChallenge/day2/day2.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img data-src="../data_viz/MapChallenge/day2/day2.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Day 02
+</h5>
+<div class="card-text listing-description">
+Day 2 form #30 Day Map Challenge
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Aug 2, 2022
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="R,Data Viz,sf,ggplot2" data-listing-date-sort="1659330000000" data-listing-file-modified-sort="1684623791006" data-listing-reading-time-sort="3.325">
+<a href="../data_viz/MapChallenge/day1/day1.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img data-src="../data_viz/MapChallenge/day1/day1.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Day 01
+</h5>
+<div class="card-text listing-description">
+Day 1 form #30 Day Map Challenge
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Aug 1, 2022
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+<nav id="MapChallenge-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
+</div>
+</section>
+<section id="tidytuesday" class="level2">
+<h2 class="anchored" data-anchor-id="tidytuesday">TidyTuesday</h2>
+<div id="listing-TidyTuesday" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
 
 
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

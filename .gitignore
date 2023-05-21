@@ -19,3 +19,10 @@ _*/
 /.quarto/
 
 /.luarc.json
+/*.rds
+*_cache/
+*_files/
+*.csv
+*.grd
+*.gri
+*.vrt
