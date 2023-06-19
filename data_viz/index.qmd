@@ -1,6 +1,5 @@
 ---
 title: "Data Visualization"
-image: foto.png
 listing:
   - id: MapChallenge
     contents: 

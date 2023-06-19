@@ -1,6 +1,6 @@
 ---
 title: ""
-image: foto.png
+# image: foto.png
 about:
   template: trestles
   id: hero-heading
@@ -37,8 +37,19 @@ listing:
     sort-ui: false
     filter-ui: false
     fields: [title, image, description, date]
-header-includes: >
-  <link rel="stylesheet" href="_assets/css/index.css">
+  - id: data-viz
+    contents:
+      - "data_viz/*/*/*.qmd"
+      - "projects/*/*/*.md"
+    sort: "date desc"
+    type: grid
+    max-items: 9
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+    fields: [title, image, description, date]
+
 resources:
   - _assets/css/index.css
 ---
@@ -49,9 +60,10 @@ resources:
 :::
 
 ::: lead
-Soy Jhon K. Flores Rojas, actualmente soy **Asistente de investigacón**, en [D2CML](https://d2cml-ai.github.io/d2cml.ai/) apoyando en temas **Causal Inference**, esto incluye creación de libros, modelos de machine learnign, visualización de datos, automatización y creacion de paquetes en diferentes lenguajes de programación.
+Soy Jhon K. Flores Rojas, actualmente soy `Asistente de investigacón`, en [D2CML](https://d2cml-ai.github.io/d2cml.ai/) 
+apoyando en temas `Causal Inference`, esto incluye creación de libros, modelos de machine learnign, visualización de datos, automatización y creacion de paquetes en diferentes lenguajes de programación.
 
-Gracias a ello reforcé mis conocimientos de **Python**, **R**, **Julia**, **Stata**, **Linux** y **Github Workflow**. Tambien tengo conocimientos de otras herramientas de analisis de datos, como **PowerBI**, **SQL**.
+Gracias a ello reforcé mis conocimientos de `Python`, `R`, `Julia`, `Stata`, `Linux` y `Github Workflow`. Tambien tengo conocimientos de otras herramientas de analisis de datos, como `PowerBI`, `SQL` y `Tableau`.
 :::
 :::
 
@@ -74,4 +86,9 @@ Cree esta pagina para dar a conocer y compartir lo que aprendí y voy aprendiend
 ## Blog
 
 ::: {#recent-blog-listing}
+:::
+
+## Data Viz
+
+::: {#data-viz}
 :::

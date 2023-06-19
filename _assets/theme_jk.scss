@@ -1,0 +1,126 @@
+/*-- scss:defaults --*/
+@import "light-var";
+@import "dark-var";
+@import "colors";
+
+$web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Outfit:wght@300;400;500;600&family=Roboto&display=swap";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+@if $web-font-path {
+  @import url($web-font-path);
+}
+
+// Base document colors
+
+// Code blocks
+$code-block-bg-alpha: -0.8;
+
+/*-- scss:defaults --*/
+/*-- scss:rules --*/
+/*-- scss:mixins --*/
+/*-- scss:functions --*/
+/*-- scss:uses --*/
+
+$code-block-border-left: $left-code-cl;
+$code-block-padding-left: 1em;
+$code-bg: $codebg;
+$code-color: $code-cl;
+
+$body-bg: $main-cl;
+$body-color: $text-cl;
+
+$navbar-color: $text-cl;
+$navbar-bg: $main-cl;
+
+.navbar-nav {
+  .nav-link {
+    &.active {
+      border-bottom: $active-cl solid 2px;
+    }
+  }
+}
+.nav-link {
+  .menu-text,
+  .navbar-title {
+    color: $text-cl;
+  }
+}
+
+.navbar {
+  // border: none;
+  padding-right: 10px;
+  border-bottom: solid 1px $line-cl !important;
+}
+
+section h2 {
+  border-bottom: solid $line-cl 0.5px;
+}
+
+details summary::marker {
+  color: $primary-color;
+}
+
+h1 {
+  color: $primary-color;
+  font-weight: bold;
+}
+
+h2,
+h3 {
+  font-weight: bold;
+  color: $secondary-color;
+}
+
+.uri {
+  color: $secondary-color;
+  text-decoration: none;
+}
+
+a#quarto-back-to-top {
+  color: $text-cl;
+}
+
+// stylelint-disable-next-line value-keyword-case
+$font-family-sans-serif: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-sm: $font-size-base * 0.875 !default;
+
+// $font-body: Inter;
+
+p {
+  font-family: Inter, "Roboto" !important;
+}
+
+a div.listing-categories,
+div.quarto-categories {
+  font-family: "Roboto", sans-serif;
+  color: $code-color !important;
+  // font-weight: bold;
+}
+
+.cell-output {
+  pre code {
+    font-size: 0.8rem;
+    max-height: 300px;
+    overflow-y: auto;
+    border: solid 1px #54586b;
+    // white-space: pre-wrap;
+  }
+}
+
+div.lead {
+  color: $text-cl;
+  font-size: 17px;
+  p code {
+    background-color: $main-cl;
+  }
+}
+
+.quarto-grid-item {
+  color: $text-cl !important;
+  background-color: $main-cl !important;
+  border: solid 1px $terciary-color !important;
+  font-family: "Roboto";
+}

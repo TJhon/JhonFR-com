@@ -4,9 +4,8 @@ project:
 
 website:
   favicon: "figs/jk.ico"
-  search:
-    location: navbar
-    type: overlay
+  page-navigation: true
+  back-to-top-navigation: true
   title: "Jhon K. Flores Rojas"
   repo-url: https://github.com/tjhon/jhon
   repo-actions:
@@ -16,10 +15,8 @@ website:
   twitter-card:
     creator: "@jhon"
     site: "@jhon"
-  # open-graph: true
   navbar:
     title: Jhon K.
-    # background: light
     right:
       - icon: folder
         href: blog/index.qmd
@@ -42,39 +39,38 @@ website:
       - icon: person-lines-fill
         href: about/index.qmd
         text: About
-  # reader-mode: true
   page-footer:
     border: false
-    background: light
-    left: >-
-      Jhon Flores Rojas
+    left: "Jhon Flores Rojas"
     center:
       - icon: github
       - icon: twitter
-      - icon: rss
       - icon: linkedin
       - icon: instagram
 format:
   html:
+    code-tools:
+      source: true
+      toggle: true
+      caption: "Opciones de codigo"
     link-external-newwindow: true
     theme:
-      # dark:
-      - _assets/dark/dark-style.scss
-      - _assets/dark/dark-base.scss
-      - _assets/dark/colors.scss
-      # light:
-      #   - litera
-      #   - _assets/dark/colors.scss
-      #   - _assets/dark/dark-base.scss
-      #   - _assets/light/light-style.scss
-    css: _assets/css/extras.css
-
-    # highlight-style:
-    # light: _assets/syntax-elm-light.theme
-    # dark: _assets/dark/dark.theme
-    code-block-bg: false
+      light:
+        - litera
+        - _assets/colors
+        - _assets/light-var.scss
+        - _assets/theme_jk.scss
+      dark:
+        - litera
+        - _assets/colors
+        - _assets/dark-var.scss
+        - _assets/theme_jk.scss
     toc: true
     page-layout: full
+    code-overflow: wrap
+    highlight-style:
+      light: _assets/light-code.theme
+      dark: _assets/dark-code.theme
 
 editor: visual
 execute:
