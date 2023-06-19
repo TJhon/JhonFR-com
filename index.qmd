@@ -52,6 +52,10 @@ listing:
 
 resources:
   - _assets/css/index.css
+code-tools:
+  source: false
+  toggle: false
+toc: false
 ---
 
 ::: {#hero-heading}
