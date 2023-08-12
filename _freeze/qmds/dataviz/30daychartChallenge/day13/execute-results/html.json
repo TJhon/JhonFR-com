@@ -1,0 +1,14 @@
+{
+  "hash": "03761f7011d6afcdc4b82bf8f5a0cc77",
+  "result": {
+    "markdown": "---\ntitle: \"Day 13\" \ndate: '2022-04-13'\nimage: plots/day13_dcc_22.png\ncategories:\n  - R\n  - Data Viz \n  - ggplot2\n  - Data analysis\ndescription: 'Day 13 from #30dataChartChallenge'\n---\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrarian::shelf(\n  tidyverse\n  , cowplot\n)\n\ngdp_ene <- \n  read_csv(\n  here::here(\n    \"data\", \"owd\", \"electr-gpr.csv\"\n  )\n) |> \n  janitor::clean_names() |> \n  filter(year %in% 2019) |> \n  rename(acces = 4, gdp = 5, pop = 6) |> \n  drop_na(acces, gdp) |> \n  mutate(\n    acces = acces / 100\n  )\n  \n\n\noptions(scipen = 999)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\np1 <- \n  gdp_ene |> \n  ggplot() +\n  aes(gdp, acces, size = pop) +\n  geom_point() +\n  # geom_smooth(se = F) +\n  scale_size(range(7, 6)) +\n  theme_bw() +\n  labs(\n    x = \"PIB per capita\"\n    , y = \"Acceso a la electricidad\"\n    , title = \"Acceso a la electricidad vs PIB per capita, 2019\"\n  ) +\n  scale_y_continuous(labels = scales::percent) +\n  scale_x_continuous(labels = scales::dollar) +\n  theme(\n    legend.position = \"none\"\n    , panel.grid.minor = element_blank()\n  )\n\nf_c <- \"#12677a\"\np3 <- \n  p1 +\n  annotate(\n    \"rect\"\n    , xmin = 0, xmax = 25000\n    , ymin = 0, ymax = 1\n    , alpha = .3\n    , fill = f_c\n  ) \n\np2 <- \n  p1 +\n  scale_x_continuous(\n    labels = scales::dollar, limits = c(0, 25000)\n    , breaks = seq(0, 25000, by = 8000)\n    ) +\n  geom_smooth(se = F, color = f_c) +\n  labs(\n    title = \"\"\n    , y = \"\"\n    , x = \"\"\n    ) +\n  theme_void() +\n  theme(\n    legend.position = \"none\"\n    ,  panel.background = element_rect(NA, color = f_c)\n  )\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\np <- \n  ggdraw(p3) +\n  draw_plot(\n    p2, height = .4, width = .4\n    , x = .5\n    , y = .3\n    )\n\np +\n  draw_line(\n    x = c(.285, .5)\n    , y = c(.11, .3)\n    , linetype = \"dashed\"\n    , color = f_c\n  ) +\n  draw_line(\n    x = c(.285, .5)\n    , y = c(.89, .65)\n    , linetype = \"dashed\"\n    , color = f_c\n  ) +\n  theme(\n    plot.margin = margin(0, 0, .4, 0, \"cm\")\n    , plot.background = element_rect(\"white\")\n  ) +\n  draw_label(\n    \"#30DayChartChallenge | Data: OWID \\nDay13: Correlation | Viz: @JhonKevinFlore1\"\n    , x = .9\n    , y = 0\n    , color = \"grey40\"\n    , size = 8\n    , hjust = 1\n  )\n\n\nggsave(\n  'plots/day13_dcc_22.png'\n  # , plot = p\n  , width = 8\n  , height = 6\n)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nknitr::include_graphics('plots/day13_dcc_22.png')\n```\n\n::: {.cell-output-display}\n![](plots/day13_dcc_22.png){width=1200}\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

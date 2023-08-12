@@ -1,0 +1,14 @@
+{
+  "hash": "100f212ca8bc15c44f62a487152214b1",
+  "result": {
+    "markdown": "---\ntitle: \"Day 09\" \ndate: '2022-02-19'\nimage: \"plots/day9.png\"\ncategories:\n  - R\n  - Data Viz \n  - sf\n  - ggplot2\ndescription: 'Day 9 from #30 Day Map Challenge'\n---\n\n\n\n\n\n\n## Code\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrarian::shelf(\n    tidyverse\n    # , raster\n    , sf\n    , PeruData\n    , cowplot\n)\nsysfonts::font_add_google(\"Montserrat\")\nshowtext::showtext.auto()\n\n\nlt_e <-\n    map(dir(here::here(), recursive = T, pattern = \".shp$\", full.names = T), read_sf) |>\n    map(janitor::clean_names) |>\n    map(drop_na)\n\ncentrales <-\n    lt_e[[1]] |>\n    st_as_sf() |>\n    get_centroid() |>\n    select(x_center, y_center, potencia_i) |>\n    st_drop_geometry()\n\n\nmypal <- colorRampPalette(c(\"#a6bed8\", \"#0b335e\"))\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ntemp <-\n    ggplot() +\n    # geom_sf(data = lt_e[[1]], aes(geometry = geometry), size = 3) +\n    geom_sf(data = lt_e[[2]], aes(geometry = geometry, color = tension_no, size = tension_no)) +\n    geom_sf(data = lt_e[[3]], aes(geometry = geometry, size = tension), linetype = 11, color = \"#0b335e\") +\n    geom_sf(data = map_peru_peru, fill = NA, color = mypal(2)[2]) +\n    scale_color_gradientn(colours = mypal(2)) +\n    scale_size(range = c(.1, 4.4)) +\n    geom_point(data = centrales, aes(x_center, y_center), size = 14, color = \"#0b335e\") +\n    geom_point(data = centrales, aes(x_center, y_center), size = 10, color = \"#dee7ef\") +\n    geom_point(data = centrales, aes(x_center, y_center), size = 6, color = \"#0b335e\") +\n    theme_void() +\n    theme(legend.position = \"none\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggdraw(temp, xlim = c(0, 1), ylim = c(0, 1.08)) +\n    draw_label(\n        x = .5, y = 1.03\n        , color = mypal(2)[2]\n        ,\"Red eléctrica del Perú\", size = 300\n        , fontfamily = \"Montserrat\"\n        , fontface = 'bold'\n        ) +\n    draw_label(\n        \"#30DayMapChallenge | Day9: Monochrome\\nData: OSINERGMIN | @jhonkevinflore1\"\n        , hjust = .5\n        , fontfamily = \"Montserrat\"\n        , x = .3, y = .1\n        , color = mypal(2)[2]\n        , size = 100\n        , lineheight = .3\n    ) +\n    theme(\n        plot.background = element_rect(fill = \"white\")\n    )\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggsave(\n    here::here(\"plots\", \"day9.png\")\n    , width = 18\n    , height = 25\n    )\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

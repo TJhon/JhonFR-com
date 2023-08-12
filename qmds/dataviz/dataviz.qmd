@@ -1,0 +1,63 @@
+---
+title: "Data Visualization"
+listing:
+  - id: MapChallenge
+    contents: 
+      - "MapChallenge/*/*.qmd"
+      - "MapChallenge/*.qmd"
+    sort: "date desc"
+    type: grid
+    max-items: 300
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+
+  - id: TidyTuesday
+    contents:
+      - "TidyTuesday/*/*.qmd"
+      - "TidyTuesday/*.qmd"
+      - "TidyTuesday/*/*/*.qmd"
+    sort: "date"
+    type: grid
+    max-items: 300
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+  - id: DayChartChallenge
+    contents: 
+      - "30daychartChallenge/*.qmd"
+    sort: "date"
+    type: grid
+    max-items: 300
+    page-size: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+---
+
+Hola, aqui hay algunos de mis gráficos que hice con algunos lenguajes de programación (algunos datos necesitaron ser pre procesados para poder ser utilizados), trate de usar base de datos relacionadas a Perú y promocionar mi librería de R `PeruData` el cual simplifica la limpieza y análisis de datos. 
+
+
+
+
+## #30 Day Map Challenge
+
+
+::: {#MapChallenge}
+:::
+
+## #30 Day Chart Challenge
+
+::: {#DayChartChallenge}
+:::
+
+## #TidyTuesday
+
+::: {#TidyTuesday}
+:::
+
+---
+
+Si no se puede reproducir algun gráfico es probable que se hayan actualizado las librerías (incluyendo mis librerías de `R`, `python` y `julia`) que utilicé en su momento para la creación de los gráficos, ademas que no inclui algunas bases de datos en el `raw` ya que son muy pesadas para una pagina web.    

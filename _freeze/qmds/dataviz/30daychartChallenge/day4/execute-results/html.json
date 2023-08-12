@@ -1,0 +1,14 @@
+{
+  "hash": "b56e7e930345c9ca12d60854142abf95",
+  "result": {
+    "markdown": "---\ntitle: \"Day 04\" \ndate: '2022-04-04'\nimage: plots/day4_dcc_22.png\ncategories:\n  - R\n  - Data Viz \n  - IGP\n  - ggplot2\n  - Data analysis\ndescription: 'Day 4 form #30datChartChallenge'\n---\n\n::: {.cell}\n\n```{.r .cell-code}\np_name = 'plots/day4_dcc_22.png'\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

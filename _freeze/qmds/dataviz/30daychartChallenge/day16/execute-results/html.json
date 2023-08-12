@@ -1,0 +1,14 @@
+{
+  "hash": "a24cf5588ce1b65cf93c1c05ea5db69c",
+  "result": {
+    "markdown": "---\ntitle: \"Day 16\" \ndate: '2022-04-16'\nimage: plots/day16_dcc_22.png\ncategories:\n  - R\n  - Data Viz \n  - ggplot2\n  - Data analysis\ndescription: 'Day 16 from #30dataChartChallenge'\n---\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nzona <- \n  read_rds(here::here(\"data\", \"zonas.rds\"))\n\nh_inc <- \n  dir(recursive = T, pattern = \"shp$\", full.names = T) |> \n  read_sf() |> \n  janitor::clean_names()\n\norden <- \n  zona |> \n  # st_drop_geometry() |> \n  select(tipo, sum_km2) |> \n  with_groups(tipo, summarise, t = sum(sum_km2)) |> \n  pull(tipo)\n\ncolores <- \n  c(\n     \"#02820d\"\n    , \"#0a440f\"\n    , \"#0c8fad\"\n    , \"#bc5c0d\"\n    , \"#967d4e\"\n    , \"#a38165\"\n  )\n\n\n\nzona1 <- \n  zona |> \n  mutate(tipo = factor(tipo, orden))\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nrango <- c(min(h_inc$ano), max(h_inc$ano))\n  \np <- \n  zona1 |> \n  select(tipo, geometry) |> \n  st_as_sf() |> \n  ggplot()+\n  geom_sf(data = map_peru_peru, fill = \"grey80\", color = \"grey70\") +\n  geom_sf(aes(fill = tipo), size = .1) +\n  scale_fill_manual(values = colores) +\n  labs(\n    fill = \"\"\n    , title = \"Perú - Incendios georeferenciados\"\n    , subtitle = \" \\n{2000 - 2017}\"\n    , caption = \"#30DayChartChallenge | Day16: Environment\\nData: MINAM - Peru | Viz: @JhonKevinFlore1\"\n    ) +\n  geom_sf(data = h_inc, shape = 13, color = \"#d82e17\", alpha = .4, size = 2)  +\n  theme_void() +\n  theme(\n    panel.background = element_rect(\"#f2f0e1\", color = NA)\n    , plot.background = element_rect(\"#e5e3d3\", color = NA)\n    , plot.caption = element_text(hjust = .5, color = \"gray40\")\n    , plot.title = element_text(hjust = .5, size = 18, face = \"bold\")\n    , plot.subtitle = element_text(hjust = .5, size = 14, color = \"gray20\")\n    , legend.position = c(.2, .2)\n    , plot.margin = margin(0, 0, 0.5, 0, \"cm\")\n  )\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggsave(\n  'plots/day16_dcc_22.png'\n  , plot = p\n  , width = 7\n  , height =10\n)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nknitr::include_graphics('plots/day16_dcc_22.png')\n```\n\n::: {.cell-output-display}\n![](plots/day16_dcc_22.png){width=1050}\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

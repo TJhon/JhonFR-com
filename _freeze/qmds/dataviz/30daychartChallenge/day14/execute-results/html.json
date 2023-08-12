@@ -1,0 +1,14 @@
+{
+  "hash": "16bdadc176abcb90302845fea86a1292",
+  "result": {
+    "markdown": "---\ntitle: \"Day 14\" \ndate: '2022-04-14'\nimage: plots/day14_dcc_22.png\ncategories:\n  - R\n  - Data Viz \n  - ggplot2\n  - Data analysis\ndescription: 'Day 14 from #30dataChartChallenge'\n---\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrarian::shelf(\n  tidyverse\n  , gg3D\n  , PeruData\n  , raster\n  , sf\n)\n\n\nhyo0 <- \n  filter(map_peru_prov, prov == \"huancayo\") \n  \nhyo <- \n  raster_peru_alt |> \n  mask(hyo0) |> \n  rasterToPoints() |> \n  as_tibble() |> \n  rename(alt = 3)\n\nmin_h <- min(hyo$alt)\nmax_h <- max(hyo$alt)\n\ntheta <- 10\nphi <- 0\n\n\nalt_cl <- colorRampPalette(\n  c(\n    \"#aa500b\"\n    , \"#0b68aa\"\n    , \"#13a506\"\n    )\n  )\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\np <- ggplot(hyo, aes(x=x, y=y, z=alt, color = alt)) +\n  axes_3D(theta=theta, phi=phi) +\n  stat_3D(theta=theta, phi=phi, alpha = .3) +\n  # stat_wireframe(alpha = .5) +\n  axis_labs_3D(theta=theta, phi=phi, size=3, \n               hjust=c(1,1,1.2,1.2,1.2,1.2), \n               vjust=c(-.5,-.5,-.2,-.2,1.2,1.2)) +\n  labs_3D(theta=theta, phi=phi, \n          hjust=c(1,0,0), vjust=c(1.5,0,-.2),\n          labs=c(\"Latitud\", \"Longitud\", \"Altitud\")) +\n  theme_void() +\n  labs(\n    title = \"Altitud de la ciudad de Huancayo - Perú\"\n    , subtitle = glue::glue(\"Máxima altitud: {max_h}\\nMínima altitud: {min_h}\")\n    , caption = \"#30DayChartChallenge\\nDay14: 3D | Viz: @JhonKevinFlore1\"\n  ) +\n  scale_color_gradientn(colours = alt_cl(3)) +\n  theme(\n    panel.background = element_rect(\"white\", color = NA)\n    , plot.background = element_rect(\"white\", color = NA)\n    , plot.title = element_text(hjust = .5)\n    , plot.subtitle = element_text(hjust = 1)\n    , legend.position = \"none\"\n    , plot.margin = margin(2, 3, 2, 3, \"mm\")\n    , plot.caption = element_text(hjust = 0, color = \"grey35\")\n  )\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggsave(\n  'plots/day14_dcc_22.png'\n)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nknitr::include_graphics(\"plots/day14_dcc_22.png\")\n```\n\n::: {.cell-output-display}\n![](plots/day14_dcc_22.png){width=1067}\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

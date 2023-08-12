@@ -1,44 +1,89 @@
 [
   {
-    "listing": "/blog/index.html",
-    "items": [
-      "/blog/test/index.html"
-    ]
-  },
-  {
-    "listing": "/data_tidy/index.html",
-    "items": [
-      "/data_tidy/challenge1/index.html"
-    ]
-  },
-  {
-    "listing": "/data_viz/index.html",
-    "items": [
-      "/data_viz/MapChallenge/day5/day5.html",
-      "/data_viz/MapChallenge/day4/day4.html",
-      "/data_viz/MapChallenge/day3/day3.html",
-      "/data_viz/MapChallenge/day2/day2.html",
-      "/data_viz/MapChallenge/day1/day1.html"
-    ]
-  },
-  {
     "listing": "/index.html",
     "items": [
-      "/blog/test/index.html",
-      "/projects/PeruData/index.html",
-      "/projects/Ssynthdid/index.html",
-      "/data_viz/MapChallenge/day5/day5.html",
-      "/data_viz/MapChallenge/day4/day4.html",
-      "/data_viz/MapChallenge/day3/day3.html",
-      "/data_viz/MapChallenge/day2/day2.html",
-      "/data_viz/MapChallenge/day1/day1.html"
+      "/qmds/dataviz/30daychartChallenge/day24.html",
+      "/qmds/dataviz/30daychartChallenge/day23.html",
+      "/qmds/dataviz/30daychartChallenge/day22.html",
+      "/qmds/dataviz/30daychartChallenge/day21.html",
+      "/qmds/dataviz/30daychartChallenge/day20.html",
+      "/qmds/dataviz/30daychartChallenge/day19.html",
+      "/qmds/dataviz/30daychartChallenge/day17.html",
+      "/qmds/dataviz/30daychartChallenge/day16.html",
+      "/qmds/dataviz/30daychartChallenge/day15.html",
+      "/qmds/dataviz/30daychartChallenge/day14.html",
+      "/qmds/dataviz/30daychartChallenge/day13.html",
+      "/qmds/dataviz/30daychartChallenge/day12.html",
+      "/qmds/dataviz/30daychartChallenge/day11.html",
+      "/qmds/dataviz/30daychartChallenge/day10.html",
+      "/qmds/dataviz/30daychartChallenge/day9.html",
+      "/qmds/dataviz/30daychartChallenge/day8.html",
+      "/qmds/dataviz/30daychartChallenge/day7.html",
+      "/qmds/dataviz/30daychartChallenge/day6.html",
+      "/qmds/dataviz/30daychartChallenge/day5.html",
+      "/qmds/dataviz/30daychartChallenge/day4.html",
+      "/qmds/dataviz/30daychartChallenge/day3.html",
+      "/qmds/dataviz/30daychartChallenge/day2.html",
+      "/qmds/dataviz/30daychartChallenge/day1.html",
+      "/qmds/dataviz/TidyTuesday/22-11.html",
+      "/qmds/dataviz/TidyTuesday/22-10.html",
+      "/qmds/dataviz/TidyTuesday/22-09.html",
+      "/qmds/dataviz/MapChallenge/day9.html",
+      "/qmds/dataviz/30daychartChallenge/day18.html",
+      "/qmds/dataviz/MapChallenge/day6_8.html",
+      "/qmds/dataviz/MapChallenge/day5/day5.html",
+      "/qmds/dataviz/MapChallenge/day4/day4.html",
+      "/qmds/dataviz/MapChallenge/day3/day3.html",
+      "/qmds/dataviz/MapChallenge/day2/day2.html",
+      "/qmds/dataviz/MapChallenge/day1/day1.html",
+      "/qmds/projects/PeruData/perudata.html",
+      "/qmds/projects/Ssynthdid/ssynthdid.html"
     ]
   },
   {
-    "listing": "/projects/index.html",
+    "listing": "/qmds/dataviz/dataviz.html",
     "items": [
-      "/projects/PeruData/index.html",
-      "/projects/Ssynthdid/index.html"
+      "/qmds/dataviz/MapChallenge/day9.html",
+      "/qmds/dataviz/MapChallenge/day6_8.html",
+      "/qmds/dataviz/MapChallenge/day5/day5.html",
+      "/qmds/dataviz/MapChallenge/day4/day4.html",
+      "/qmds/dataviz/MapChallenge/day3/day3.html",
+      "/qmds/dataviz/MapChallenge/day2/day2.html",
+      "/qmds/dataviz/MapChallenge/day1/day1.html",
+      "/qmds/dataviz/TidyTuesday/22-09.html",
+      "/qmds/dataviz/TidyTuesday/22-10.html",
+      "/qmds/dataviz/TidyTuesday/22-11.html",
+      "/qmds/dataviz/30daychartChallenge/day18.html",
+      "/qmds/dataviz/30daychartChallenge/day1.html",
+      "/qmds/dataviz/30daychartChallenge/day2.html",
+      "/qmds/dataviz/30daychartChallenge/day3.html",
+      "/qmds/dataviz/30daychartChallenge/day4.html",
+      "/qmds/dataviz/30daychartChallenge/day5.html",
+      "/qmds/dataviz/30daychartChallenge/day6.html",
+      "/qmds/dataviz/30daychartChallenge/day7.html",
+      "/qmds/dataviz/30daychartChallenge/day8.html",
+      "/qmds/dataviz/30daychartChallenge/day9.html",
+      "/qmds/dataviz/30daychartChallenge/day10.html",
+      "/qmds/dataviz/30daychartChallenge/day11.html",
+      "/qmds/dataviz/30daychartChallenge/day12.html",
+      "/qmds/dataviz/30daychartChallenge/day13.html",
+      "/qmds/dataviz/30daychartChallenge/day14.html",
+      "/qmds/dataviz/30daychartChallenge/day15.html",
+      "/qmds/dataviz/30daychartChallenge/day16.html",
+      "/qmds/dataviz/30daychartChallenge/day17.html",
+      "/qmds/dataviz/30daychartChallenge/day19.html",
+      "/qmds/dataviz/30daychartChallenge/day20.html",
+      "/qmds/dataviz/30daychartChallenge/day21.html",
+      "/qmds/dataviz/30daychartChallenge/day22.html",
+      "/qmds/dataviz/30daychartChallenge/day23.html",
+      "/qmds/dataviz/30daychartChallenge/day24.html"
+    ]
+  },
+  {
+    "listing": "/qmds/projects/projects.html",
+    "items": [
+      "/qmds/projects/PeruData/perudata.html",
+      "/qmds/projects/Ssynthdid/ssynthdid.html"
     ]
   }
 ]

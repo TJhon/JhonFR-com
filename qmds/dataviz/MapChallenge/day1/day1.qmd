@@ -1,0 +1,101 @@
+---
+title: "Day 01" 
+date: '2022-01-01'
+image: day1.png
+categories:
+  - R
+  - Data Viz 
+  - sf
+  - ggplot2
+description: 'Day 1 from #30 Day Map Challenge'
+---
+
+# R code to visualize earthquakes in Peru
+
+## Load the necessary libraries
+
+In this step, the `PeruData` (my package), `lubridate`, `cowplot`, `sysfonts`, and `showtext` libraries are loaded using the `librarian::shelf()` function and add a Google font.
+
+The font "Josefin Sans" is added from Google Fonts using the function `font_add_google()`.
+
+```{r}
+librarian::shelf(
+    PeruData
+    , lubridate
+    , cowplot
+    , sysfonts
+    , showtext
+    , tidyverse 
+)
+
+font_add_google("Josefin Sans")
+
+showtext_auto()
+
+font1 <- "Josefin Sans"
+```
+
+In this step, the igp object data from the PeruData library is filtered to keep only the records after the year 2022 using the `filter()` function.
+
+```{r}
+igp_2022 <- filter(igp, year(date) > 2021)
+```
+
+We are going to create a graph using the `ggplot2` library. Geometric layers such as polygons and points are added using the `geom_sf()`and `geom_point()` functions. You can also customize the colors and sizes of the points using the `scale_color_manual()` and `scale_size()` functions. The chart is set to have a background with no visuals using `theme_void()`, and the legend is hidden with `theme(legend.position = "none")`.
+
+```{r}
+map <-
+    ggplot() +
+    geom_sf(data = map_peru_depa, color = 'gray20', fill = "gray80") +
+    geom_point(
+        data = filter(igp_2022, alert != "Red")
+        , aes(x = lon, y = lat, color = alert, size = magn)
+        , alpha = .4
+    ) +
+    geom_point(
+        data = filter(igp_2022, alert == "Red")
+        , aes(x = lon, y = lat, color = alert, size = magn)
+        , alpha = .6
+    ) +
+    geom_point(
+        data = igp_2022
+        , aes(x = lon, lat, color = alert)
+    ) +
+    scale_color_manual(
+        values = c("#087004", "#890b0d", "#c9c912")
+    ) +
+    scale_size(range = c(2, 15)) +
+    theme_void() +
+    theme(
+        legend.position = "none"
+    )
+map
+```
+
+Finally we add labels to the graph with `cowplot`
+
+```{r}
+ggdraw(map) +
+    draw_label(label = "Alert (Mag)", x = 0.85, y = 0.65, color = "white", fontfamily = font1,hjust = .6, fontface = "bold", size = 65) +
+    draw_label(label = "> 6", x = 0.85, y = 0.60, color = "#d80d1a", fontfamily = font1,hjust = 1, fontface = "bold", size = 65) +
+    draw_label(label = "4.5 - 6", x = 0.85, y = 0.55, color = "#dbcc29", fontfamily = font1,hjust = 1, fontface = "bold", size = 65) +
+    draw_label(label = "< 4.5", x = 0.85, y = 0.5, color = "#3ebc40", fontfamily = font1, hjust = 1, fontface = "bold", size = 65) +
+    theme(
+        plot.background = element_rect(fill = "grey12")
+        , legend.position = "none"
+    ) +
+    draw_label(label = "Earthquakes in Peruvian territory (year 2022)", color = "white", hjust = 0, x = 0.02, y = 0.12, fontfamily = font1, size = 32) +
+    draw_label(label = "#30DayMapChallenge | Day 1: Points", color = "white", hjust = 0, x = 0.02, y = 0.09, fontfamily = font1, size = 32) +
+    draw_label(label = "Data: IGP with PeruData library", color = "white", hjust = 0, x = 0.02, y = 0.06, fontfamily = font1, size = 32) +
+    draw_label(label = "Created by @JhonKevinFlore1", color = "white", hjust = 0, x = 0.02, y = 0.03, fontfamily = font1, size = 32)
+```
+
+Inside the console it doesn't look good, but saving the graph, we see a different presentation
+
+```{r}
+ggsave("day1.png", units = "cm")
+```
+
+```{r}
+knitr::include_graphics("day1.png")
+```

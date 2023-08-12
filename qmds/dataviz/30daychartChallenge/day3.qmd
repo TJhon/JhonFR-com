@@ -1,0 +1,147 @@
+---
+title: "Day 03" 
+date: '2022-04-03'
+image: plots/day3_dcc_22.png
+categories:
+  - R
+  - Data Viz 
+  - IGP
+  - ggplot2
+  - Data analysis
+description: 'Day 3 from #30dataChartChallenge'
+---
+
+
+```{r}
+p_name = 'plots/day3_dcc_22.png'
+knitr::opts_chunk$set(
+  warning = F
+)
+knitr::include_graphics(p_name)
+```
+
+## Code
+
+```{r}
+librarian::shelf(
+  
+  tidyverse
+  , PeruData
+  , gganimate
+  , lubridate
+)
+```
+
+```{r}
+eq <- 
+  PeruData::igp |> 
+  distinct() |> 
+  select(!c(lat, lon, hour, intensi_km)) |> 
+  mutate(
+    anio = year(date)
+    , mes = month(date)
+  ) |> 
+  group_by(anio, mes, alert) |> 
+  summarise(promedio = mean(magn)) |> 
+  ungroup() |> 
+  mutate(date = ymd(paste(anio, mes, "01", sep = "/"))) |> 
+  select(!1:2) |> 
+  drop_na() |> 
+  mutate(
+    alert = factor(alert, c("Red", "Yellow", "Green"))
+    , alerta_name = case_when(
+      alert == "Red" ~ 'Alerta "Roja"'
+      , alert == "Yellow" ~ 'Alerta "Ararilla"'
+      , T ~ 'Alerta "Verde"'
+    ) |> 
+      factor(c('Alerta "Roja"', 'Alerta "Ararilla"', 'Alerta "Verde"'))
+  ) |> 
+  filter(year(date) < 2023) |> 
+  with_groups(
+    alert, mutate, mid = mean(promedio, na.rm = T)
+  )
+eq |> head()
+```
+
+
+```{r}
+pal <- c(
+  "#C20008" 
+  , "#FFB400"
+  # , "#595A52"  
+  # , "#13AFEF"
+  , "#006320"
+)
+eq |> 
+  ggplot() +
+  geom_point(size = 1) +
+  aes(date, promedio, color = alert) +
+  geom_step(direction = "vh") +
+  geom_hline(aes(yintercept = mid, color = alert), linetype = "dashed") +
+  facet_wrap(~alerta_name, scales = "free_y", ncol = 1) +
+  labs(
+    x = "", y = ""
+    , title = "Terremotos/Sismos en el Perú"
+    , subtitle = "Promedio de la magnitud de los terremotos segun su clasificación"
+    , caption = "Data: IGP - Peru | Viz: @JhonKevinFlore1 | #30DayChartChallenge | Day3: Historical"
+    
+    ) +
+  scale_color_manual(
+    values = pal
+  ) + 
+  scale_x_date(
+    date_labels = "%m - %Y", date_breaks = "2 years"
+    , limits = as.Date(c('1958-05-01','2023-01-01'))
+    )  +
+  
+  theme(
+    axis.text.x = element_text(angle = 60, vjust = .1, hjust = .5, size = 40)
+    , legend.position = "none"
+    , panel.grid.minor = element_blank()
+    , panel.grid.major.x = element_line(size = .5, color = "grey70", linetype = "dotted")
+    , text = element_text(
+      # family = "Ubuntu",
+      face = 'bold',
+      colour = "#004D40",
+      size = 40
+    ),
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA), 
+    
+    plot.title = element_text(
+      hjust = 0.5,
+      size = 80,
+      margin = margin(10, 0, 0, 0),
+      color = "#c00000"
+    ),
+    plot.subtitle = element_text(
+      hjust = 0.5,
+      size = 70,
+      margin = margin(10, 0, 0, 0),
+      color = "grey40"
+    ),
+    plot.caption = element_text(
+      hjust = .5,
+      margin = margin(20, 0, 2, 0),
+      color = "grey50"
+      , lineheight = .7
+      , size = 20
+    ),
+    plot.margin = margin(0, 1, 1, 0, unit = "cm")
+    , strip.background = element_blank()
+    , strip.background.x = element_blank()
+    , axis.line.x.bottom = element_line(linetype = "solid", arrow = grid::arrow(length = unit(0.3, "cm"), 
+                                                                                ends = "last", type = "closed"))
+    , axis.line.y.left = element_line(linetype = "solid")
+  )
+```
+
+
+```{r}
+ggsave(
+  p_name
+  , width = 15 
+  , height = 8
+)
+```
+
