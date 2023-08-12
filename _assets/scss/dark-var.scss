@@ -1,0 +1,47 @@
+/*-- scss:defaults --*/
+/*-- scss:rules --*/
+/*-- scss:mixins --*/
+/*-- scss:functions --*/
+/*-- scss:uses --*/
+$text-color: #f1f1f1;
+
+$body-bg: #0f172a;
+$body-color: $text-color;
+$navbar-color: $text-color;
+$navbar-bg: $body-bg;
+
+// $code-block-padding-lef: 1em;
+
+$code-block-bg: #33415580;
+$code-block-bg-alpha: -0.56;
+
+// inline code
+$code-bg: $code-block-bg;
+$code-color: #ff9900e5;
+
+$h-color: #15c1c4;
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $h-color;
+}
+
+h2 {
+  border-bottom: 0.5px solid #f1f1f188 !important;
+}
+
+.quarto-grid-item {
+  // color: $body-color;
+  color: $body-color !important;
+  background-color: $body-bg !important;
+  box-shadow: 1px;
+}
+.nav-link {
+  .menu-text,
+  .navbar-title {
+    color: #f0f0f0;
+  }
+}

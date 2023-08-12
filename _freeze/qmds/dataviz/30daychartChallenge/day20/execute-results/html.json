@@ -1,0 +1,14 @@
+{
+  "hash": "5d9cabe6deb5233bc4ae4bb493b3a8fa",
+  "result": {
+    "markdown": "---\ntitle: \"Day 20\" \ndate: '2022-04-20'\nimage: plots/day20_dcc_22.gif\ncategories:\n  - Julia\n  - Data Viz \n  - ggplot2\n  - Data analysis\ndescription: 'Day 20 from #30dataChartChallenge'\n---\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nknitr::include_graphics('plots/day20_dcc_22.gif')\n```\n\n::: {.cell-output-display}\n![](plots/day20_dcc_22.gif)\n:::\n:::\n\n\n## Code\n\n\n\n```julia\nusing Plots, Random\n\na = rand(50)\nb = rand(50)\n\n# scatter(x, y)\n\nt = range(0, stop=10, length=1000)\nx = cos.(t)\ny = sin.(t)\nz = sin.(5t)\n\n\nΘ = range(0, stop = 1.5π, length = 100)\nr = abs.(0.1 * randn(100) + sin.(3Θ))\n\n\nanim = @animate for i in 1:50\n    d3 = plot(x, y, z)\n    s = scatter(Plots.fakedata(50, 2), ms=i, lab=\"\", alpha = 1 - i/50)\n    c = plot(Θ, r, proj = :polar, m = 2)\n    plot(d3, c, s)\n    # scatter!(cumsum(randn(i)), ms=i)\nend\n\ngif(anim, \"plots/day20.gif\", fps=50)\n# gif\n```\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

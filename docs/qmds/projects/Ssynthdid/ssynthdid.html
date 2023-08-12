@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Adaptation of the synthdid package for staggered adoptions, improving the implementation of the model in different contexts.">
+
+<title>JhonFR - Ssytndid</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Jhon FR</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html" rel="" target=""><i class="bi bi-house" role="img">
+</i> 
+ <span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../qmds/dataviz/dataviz.html" rel="" target=""><i class="bi bi-palette" role="img">
+</i> 
+ <span class="menu-text">Dataviz</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../qmds/projects/projects.html" rel="" target=""><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/tjhon" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ssytndid</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Project</div>
+    <div class="quarto-category">R package</div>
+    <div class="quarto-category">Synthdid</div>
+    <div class="quarto-category">SSynthdid</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Adaptation of the synthdid package for staggered adoptions, improving the implementation of the model in different contexts.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">7 de mayo de 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="the-synthdid-package---link" class="level1">
+<h1>The <code>synthdid</code> package - <a href="https://github.com/synth-inference/synthdid">Link</a></h1>
+<p>This package implements the synthetic difference in difference estimator (SDID) for the average treatment effect in panel data, as proposed in Arkhangelsky et al (2019).</p>
+<section id="basic-usage" class="level2">
+<h2 class="anchored" data-anchor-id="basic-usage">Basic Usage</h2>
+<p>This library suggests the following steps: pass the database through the <code>panel.matrices()</code> function, which returns a list. The elements of the list are then passed through the <code>synthdid_estimate(Y, N0, T0)</code> function. If we want to introduce covariates, we need to take several additional steps. Here, I will simulate data from <code>1:nrow()</code> to observe the entire procedure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("synth-inference/synthdid")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(synthdid)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>Let’s observe the <code>califonia_prop99</code> database, which is a <code>data.frame</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(california_prop99) <span class="co"># NOt a tibble</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        State Year PacksPerCapita treated
+1     Alabama 1970           89.8       0
+2    Arkansas 1970          100.3       0
+3    Colorado 1970          124.8       0
+4 Connecticut 1970          120.0       0
+5    Delaware 1970          155.0       0
+6     Georgia 1970          109.9       0</code></pre>
+</div>
+</div>
+<p>Now, we pass it through the function and obtain the estimated value of the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate the effect of California Proposition 99 on cigarette consumption</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>setup <span class="ot">=</span> <span class="fu">panel.matrices</span>(california_prop99)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tau.hat <span class="ot">=</span> <span class="fu">synthdid_estimate</span>(setup<span class="sc">$</span>Y, setup<span class="sc">$</span>N0, setup<span class="sc">$</span>T0)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>tau.hat</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>synthdid: -15.604 +- NA. Effective N0/N0 = 16.4/38~0.4. Effective T0/T0 = 2.8/19~0.1. N1,T1 = 1,12. </code></pre>
+</div>
+</div>
+</section>
+<section id="problems" class="level2">
+<h2 class="anchored" data-anchor-id="problems">Problems</h2>
+<p>Everything is fine, but this library has some issues: - Only works with <code>data.frames</code>. - Doesn’t yet work for staggered data. - Adding covariates to the model means increasing the steps through intermediate functions to create the model.</p>
+<section id="only-works-with-data.frames." class="level3">
+<h3 class="anchored" data-anchor-id="only-works-with-data.frames.">Only works with <code>data.frames</code>.</h3>
+<p>If we pass a <code>tibble</code>, we will encounter an error when using the <code>panel.matrices</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>california_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(california_prop99) </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(california_df)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  State        Year PacksPerCapita treated
+  &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;   &lt;int&gt;
+1 Alabama      1970           89.8       0
+2 Arkansas     1970          100.        0
+3 Colorado     1970          125.        0
+4 Connecticut  1970          120         0
+5 Delaware     1970          155         0
+6 Georgia      1970          110.        0</code></pre>
+</div>
+</div>
+<p>To estimate, we would have to convert it to a <code>data.frame</code> (See Staggered Synthdid).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>setup <span class="ot">&lt;-</span> <span class="fu">panel.matrices</span>(california_df, <span class="st">"State"</span>, <span class="st">"Year"</span>, <span class="st">"PacksPerCapita"</span>, <span class="st">"treated"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in panel.matrices(california_df, "State", "Year", "PacksPerCapita", : There is no variation in treatment status.</code></pre>
+</div>
+</div>
+</section>
+<section id="staggered-synthdid" class="level3">
+<h3 class="anchored" data-anchor-id="staggered-synthdid">Staggered Synthdid</h3>
+<p>In this case, we are using the <code>quota</code> database.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>quota_dta <span class="ot">&lt;-</span> <span class="st">"https://www.damianclarke.net/stata/quota_example.dta"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>quota_df <span class="ot">&lt;-</span> quota_dta <span class="sc">|&gt;</span> haven<span class="sc">::</span><span class="fu">read_dta</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(quota_df)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  womparl lnmmrt country  year quota lngdp
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1   28.8    4.26 Albania  1990     0  8.46
+2    3.60   4.23 Albania  1991     0  8.12
+3    5.70   4.17 Albania  1992     0  8.05
+4    5.70   4.14 Albania  1993     0  8.14
+5    5.70   3.89 Albania  1994     0  8.23
+6    5.70   3.97 Albania  1995     0  8.36</code></pre>
+</div>
+</div>
+<p>If we want to perform the estimation (see here the procedures for estimating a <code>tibble</code>), we will encounter an error.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">panel.matrices</span>(quota_df, <span class="at">unit =</span> <span class="st">"country"</span>, <span class="at">time =</span> <span class="st">"year"</span>, <span class="at">outcome =</span> <span class="st">"womparl"</span>, <span class="at">treatment =</span> <span class="st">"quota"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in panel.matrices(quota_df, unit = "country", time = "year", outcome = "womparl", : There is no variation in treatment status.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>quota_df1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(quota_df)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">panel.matrices</span>(quota_df1, <span class="at">unit =</span> <span class="st">"country"</span>, <span class="at">time =</span> <span class="st">"year"</span>, <span class="at">outcome =</span> <span class="st">"womparl"</span>, <span class="at">treatment =</span> <span class="st">"quota"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical
+
+Warning in FUN(newX[, i], ...): coercing argument of type 'double' to logical</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in panel.matrices(quota_df1, unit = "country", time = "year", outcome = "womparl", : The package cannot use this data. Treatment adoption is not simultaneous.</code></pre>
+</div>
+</div>
+</section>
+<section id="adding-covariates" class="level3">
+<h3 class="anchored" data-anchor-id="adding-covariates">Adding Covariates</h3>
+<p>Finally, adding covariates to the model means increasing the steps through intermediate functions to create the model. In the case of a <code>tibble</code>, we have to convert it to a <strong>wide data</strong> format and transform it into a 3-dimensional matrix.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>california_prop99_cov <span class="ot">&lt;-</span> <span class="fu">mutate</span>(california_prop99, <span class="at">cov =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x_cov <span class="ot">&lt;-</span> california_prop99_cov <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, cov) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"Year"</span>, <span class="at">values_from =</span> <span class="st">"cov"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">!</span>State) <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  abind<span class="sc">::</span><span class="fu">abind</span>(<span class="at">along =</span> <span class="dv">3</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(x_cov)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39 31  1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>setup <span class="ot">&lt;-</span> <span class="fu">panel.matrices</span>(california_prop99, <span class="st">"State"</span>, <span class="st">"Year"</span>, <span class="st">"PacksPerCapita"</span>, <span class="st">"treated"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>synthdid<span class="sc">::</span><span class="fu">synthdid_estimate</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y =</span> setup<span class="sc">$</span>Y, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">N0 =</span> setup<span class="sc">$</span>N0, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">T0 =</span> setup<span class="sc">$</span>T0,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">X =</span> x_cov</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>synthdid: -15.610 +- NA. Effective N0/N0 = 16.4/38~0.4. Effective T0/T0 = 2.8/19~0.1. N1,T1 = 1,12. </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="the-staggered-synthdid-ssynthdid---link" class="level1">
+<h1>The Staggered Synthdid (<code>Ssynthdid</code>) - <a href="https://github.com/TJhon/ssynthdid">Link</a></h1>
+<p>To solve this problem, the original package was adapted. The functions remain the same, with a small modification: before each function from the original package, there is an additional “s” at the beginning. In this case, we avoid passing the database through an auxiliary function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("tjhon/synthdid")</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ssynthdid)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="tibbles-y-data.frames" class="level3">
+<h3 class="anchored" data-anchor-id="tibbles-y-data.frames"><code>tibbles</code> y <code>data.frames</code></h3>
+<p>For the first problem, let’s consider that we have a <code>tibble</code> and a <code>data.frame.</code> If we pass them through the function, we obtain the same results in both cases, and the estimated value is identical to that of the original package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(california_df); <span class="fu">class</span>(california_prop99)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssynth_estimate</span>(california_df, <span class="st">"State"</span>, <span class="st">"Year"</span>, <span class="st">"treated"</span>, <span class="st">"PacksPerCapita"</span>) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ att_estimate: num -15.6
+ $ att_table   : tibble [1 × 11] (S3: tbl_df/tbl/data.frame)
+  ..$ time        : int 1989
+  ..$ tau         : num -15.6
+  ..$ tau_wt      : num 12
+  ..$ weighted_tau: num -15.6
+  ..$ N0          : int 38
+  ..$ T0          : num 19
+  ..$ N1          : int 1
+  ..$ T1          : num 12
+  ..$ weights_sdid:List of 1
+  ..$ Y_beta      :List of 1
+  ..$ Units       :List of 1
+ $ data_ref    : tibble [1,209 × 7] (S3: tbl_df/tbl/data.frame)
+  ..$ unit     : Factor w/ 39 levels "Alabama","Arkansas",..: 1 2 4 5 6 7 8 9 10 11 ...
+  ..$ time     : int [1:1209] 1970 1970 1970 1970 1970 1970 1970 1970 1970 1970 ...
+  ..$ treatment: int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ outcome  : num [1:1209] 89.8 100.3 124.8 120 155 ...
+  ..$ treated  : int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ ty       : int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ tyear    : int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssynth_estimate</span>(california_prop99, <span class="st">"State"</span>, <span class="st">"Year"</span>, <span class="st">"treated"</span>, <span class="st">"PacksPerCapita"</span>) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ att_estimate: num -15.6
+ $ att_table   : tibble [1 × 11] (S3: tbl_df/tbl/data.frame)
+  ..$ time        : int 1989
+  ..$ tau         : num -15.6
+  ..$ tau_wt      : num 12
+  ..$ weighted_tau: num -15.6
+  ..$ N0          : int 38
+  ..$ T0          : num 19
+  ..$ N1          : int 1
+  ..$ T1          : num 12
+  ..$ weights_sdid:List of 1
+  ..$ Y_beta      :List of 1
+  ..$ Units       :List of 1
+ $ data_ref    : tibble [1,209 × 7] (S3: tbl_df/tbl/data.frame)
+  ..$ unit     : Factor w/ 39 levels "Alabama","Arkansas",..: 1 2 4 5 6 7 8 9 10 11 ...
+  ..$ time     : int [1:1209] 1970 1970 1970 1970 1970 1970 1970 1970 1970 1970 ...
+  ..$ treatment: int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ outcome  : num [1:1209] 89.8 100.3 124.8 120 155 ...
+  ..$ treated  : int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ ty       : int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ tyear    : int [1:1209] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="staggered-synthdid-1" class="level3">
+<h3 class="anchored" data-anchor-id="staggered-synthdid-1">Staggered Synthdid</h3>
+<p>For the second problem, we will use the quota database and the <code>ssynthdid_estimate</code> function. This function takes care of finding the breakpoint, returns the estimated value for staggered adoptions, and stores the information in a <code>tibble.</code> The <code>tibble</code> contains information about the estimated value for each breakpoint, along with additional information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>quota_dta <span class="ot">&lt;-</span> <span class="st">"https://www.damianclarke.net/stata/quota_example.dta"</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>quota_df <span class="ot">&lt;-</span> quota_dta <span class="sc">|&gt;</span> haven<span class="sc">::</span><span class="fu">read_dta</span>()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ssynth_estimate</span>(quota_df, <span class="at">unit =</span> <span class="st">"country"</span>, <span class="at">time =</span> <span class="st">"year"</span>, <span class="at">outcome =</span> <span class="st">"womparl"</span>, <span class="at">treated =</span> <span class="st">"quota"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$att_estimate
+[1] 8.034102
+
+$att_table
+# A tibble: 7 × 11
+   time    tau tau_wt weighted_tau    N0    T0    N1    T1 weights_sdid Y_beta  
+  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;list&gt;       &lt;list&gt;  
+1  2000  8.39      16       1.43     110    10     1    16 &lt;named list&gt; &lt;dbl[…]&gt;
+2  2002  6.97      28       2.08     110    12     2    14 &lt;named list&gt; &lt;dbl[…]&gt;
+3  2003 14.0       26       3.86     110    13     2    13 &lt;named list&gt; &lt;dbl[…]&gt;
+4  2005 -3.45      11      -0.404    110    15     1    11 &lt;named list&gt; &lt;dbl[…]&gt;
+5  2010  2.75       6       0.175    110    20     1     6 &lt;named list&gt; &lt;dbl[…]&gt;
+6  2012 21.8        4       0.926    110    22     1     4 &lt;named list&gt; &lt;dbl[…]&gt;
+7  2013 -0.820      3      -0.0262   110    23     1     3 &lt;named list&gt; &lt;dbl[…]&gt;
+# ℹ 1 more variable: Units &lt;list&gt;
+
+$data_ref
+# A tibble: 3,094 × 7
+   unit          time treatment outcome treated    ty tyear
+   &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Albania       1990         0   28.8        0     0     0
+ 2 Angola        1990         0   14.5        0     0     0
+ 3 Argentina     1990         0    6.30       0     0     0
+ 4 Armenia       1990         0   35.6        0     0     0
+ 5 Australia     1990         0    6.10       0     0     0
+ 6 Austria       1990         0   11.5        0     0     0
+ 7 Bahamas, The  1990         0    4.10       0     0     0
+ 8 Barbados      1990         0    3.70       0     0     0
+ 9 Belgium       1990         0    8.5        0     0     0
+10 Belize        1990         0    0          0     0     0
+# ℹ 3,084 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="adding-covariates-1" class="level3">
+<h3 class="anchored" data-anchor-id="adding-covariates-1">Adding Covariates</h3>
+<p>Finally, to estimate the model with covariates, we only need to include the <code>covariates</code> parameter in <code>ssynth_estimate(..., covariates = c(...))</code>. Note that it should be a vector, so even if it’s a single element, it should be specified within <code>c()</code>. One last detail is that the columns of covariates should not have any <code>NA</code> values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssynth_estimate</span>(california_prop99_cov, <span class="st">"State"</span>, <span class="st">"Year"</span>, <span class="st">"treated"</span>, <span class="st">"PacksPerCapita"</span>, <span class="at">covariates =</span> <span class="fu">c</span>(<span class="st">"cov"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$att_estimate
+[1] -15.60991
+
+$att_table
+# A tibble: 1 × 11
+   time   tau tau_wt weighted_tau    N0    T0    N1    T1 weights_sdid Y_beta  
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;list&gt;       &lt;list&gt;  
+1  1989 -15.6     12        -15.6    38    19     1    12 &lt;named list&gt; &lt;dbl[…]&gt;
+# ℹ 1 more variable: Units &lt;list&gt;
+
+$data_ref
+# A tibble: 1,209 × 8
+   unit         time treatment outcome treated    ty tyear   cov
+   &lt;fct&gt;       &lt;int&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1 Alabama      1970         0    89.8       0     0     0     1
+ 2 Arkansas     1970         0   100.        0     0     0     2
+ 3 Colorado     1970         0   125.        0     0     0     3
+ 4 Connecticut  1970         0   120         0     0     0     4
+ 5 Delaware     1970         0   155         0     0     0     5
+ 6 Georgia      1970         0   110.        0     0     0     6
+ 7 Idaho        1970         0   102.        0     0     0     7
+ 8 Illinois     1970         0   125.        0     0     0     8
+ 9 Indiana      1970         0   135.        0     0     0     9
+10 Iowa         1970         0   108.        0     0     0    10
+# ℹ 1,199 more rows</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Jhon Flores Rojas</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

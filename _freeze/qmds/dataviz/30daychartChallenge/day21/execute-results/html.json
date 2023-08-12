@@ -1,0 +1,14 @@
+{
+  "hash": "cd22bcfa5d825a8f90dae35248fbd6ec",
+  "result": {
+    "markdown": "---\ntitle: \"Day 21\" \ndate: '2022-04-21'\nimage: plots/day21_dcc_22.png\ncategories:\n  - Data Viz \n  - ggplot2\n  - Data analysis\ndescription: 'Day 21 from #30dataChartChallenge'\n---\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nknitr::include_graphics('plots/day21_dcc_22.png')\n```\n\n::: {.cell-output-display}\n![](plots/day21_dcc_22.png){width=1200}\n:::\n:::\n\n\n## Code\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrarian::shelf(\n  tidyverse\n  , PeruData\n)\n\niii_for <- \"data/inei/informalidad.csv\"\n\nPeruData::inei_data(\"informalidad\", iii_for)\n\ninformalidad <- read_csv(here::here(iii_for))\n\ninf <- \n  informalidad |> \n  drop_na() |> \n  rename(none = 1) |> \n  mutate(\n    sex = case_when(\n      none %in% c(\"Hombres\", \"Mujeres\") ~ none\n      , T ~ \"a\"\n    )\n    , none = ifelse(sex == \"a\", none, NA)\n  ) |> \n  fill(none) |> \n  filter(\n    !str_detect(none, \"Lima|Resto\")\n  ) |> \n  pivot_longer(!c(none, sex), \"anio\", values_to = \"p\") |> \n  group_by(none, sex) |> \n  mutate(\n    anio = as.integer(anio)\n    , past = lag(p)\n    , d = past - p \n    , anio = factor(anio, 2011:2022)\n    , col = ifelse(d < 0, \"decre\", \"incre\") \n  ) |> \n  filter(sex == \"a\") |>\n  drop_na() \n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\np <- \n  inf |>\n  ggplot() +\n  aes(anio, d) +\n  # geom_point() +\n  geom_hline(yintercept = 0) +\n  geom_segment(\n    aes(y = 0, yend = d, x = anio,color = col, xend = anio)\n    , arrow = arrow(type = \"closed\", length = unit(2.9, \"mm\"))\n    , size = 1.5\n  ) +\n  facet_wrap(~none, scales = \"free_y\", ncol = 1) +\n  scale_x_discrete(breaks = c(2011, 2015, 2019, 2020)) +\n  scale_y_continuous(labels = scales::comma) +\n  scale_color_manual(\n    values = c(\"#092f60\", \"#d3431f\")\n  ) +\n  labs(\n    title = \"Cambio porcentual de la informalidad en el Perú\"\n    , subtitle = \"Cambio respecto del año anterior\"\n    , x = \"\"\n    , y = \"\"\n    , caption = \"#30DayChartChallenge | Day 21: Down Upwards\\nData: INEI |  @JhonKevinFlore1\"\n  )+\n  cowplot::theme_minimal_vgrid() +\n  theme(\n    legend.position = \"none\"\n    , panel.grid.major.x = element_line(\n      linetype = \"dotted\"\n      , color = \"gray60\"\n    )\n    , plot.caption = element_text(hjust = .5, color = \"grey50\")\n    , plot.title = element_text(hjust = -.3)\n    , plot.subtitle = element_text(hjust = -.13)\n  )\n\nggsave(\n    plot = p\n    , 'plots/day21_dcc_22.png'\n    , height = 6\n    , width = 8\n    , bg = \"#dae5e5\"\n  )\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

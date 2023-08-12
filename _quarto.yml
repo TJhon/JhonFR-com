@@ -3,75 +3,64 @@ project:
   output-dir: docs
 
 website:
-  favicon: "figs/jk.ico"
-  page-navigation: true
-  back-to-top-navigation: true
-  title: "Jhon K. Flores Rojas"
-  repo-url: https://github.com/tjhon/jhon
-  repo-actions:
-    - source
-    - edit
-    - issue
-  twitter-card:
-    creator: "@jhon"
-    site: "@jhon"
+  title: JhonFR
+  favicon: "_assets/icons/fr-logo.ico"
+
   navbar:
-    title: Jhon K.
+    title: Jhon FR
     right:
-      - icon: folder
-        href: blog/index.qmd
-        text: Blog
+      # - icon: folder
+      #   text: Blog
       - icon: palette
-        text: Data Viz
-        href: data_viz/index.qmd
+        text: DataViz
+        href: qmds/dataviz/dataviz.qmd
       - icon: terminal
         text: Projects
-        href: projects/index.qmd
-      - icon: table
-        text: Tidy Data
-        href: data_tidy/index.qmd
+        href: qmds/projects/projects.qmd
+      # - icon: bar-chart-steps
+      #   text: Data Analysis
       - icon: github
         href: https://github.com/tjhon
     left:
-      - href: index.qmd
+      - icon: house
         text: Home
-        icon: house
-      - icon: person-lines-fill
-        href: about/index.qmd
-        text: About
+        href: index.qmd
+
   page-footer:
     border: false
     left: "Jhon Flores Rojas"
-    center:
-      - icon: github
-      - icon: twitter
-      - icon: linkedin
-      - icon: instagram
+    right: "Made with [quarto](https://quarto.org/)"
+
 format:
   html:
-    code-tools:
-      source: true
-      toggle: true
-      caption: "Opciones de codigo"
     link-external-newwindow: true
+
     theme:
       light:
         - litera
-        - _assets/colors
-        - _assets/light-var.scss
-        - _assets/theme_jk.scss
+        - _assets/scss/theme.scss
+        - _assets/scss/light-var.scss
       dark:
         - litera
-        - _assets/colors
-        - _assets/dark-var.scss
-        - _assets/theme_jk.scss
-    toc: true
-    page-layout: full
-    code-overflow: wrap
-    highlight-style:
-      light: _assets/light-code.theme
-      dark: _assets/dark-code.theme
+        - _assets/scss/theme.scss
+        - _assets/scss/dark-var.scss
 
-editor: visual
+    highlight-style:
+      light: _assets/highlight/light.theme
+      dark: _assets/highlight/dark.theme
+
+    # toc: true
+    # code-tools:
+    #   source: true
+    #   toggle: true
+    #   caption: "Código"
+    code-overflow: wrap
+    # code-block-border-left: true
+
+    # page-layout: 80vw
+
+lang: es
+editor: source
 execute:
-  freeze: auto
+  freeze: true
+  # freeze: auto

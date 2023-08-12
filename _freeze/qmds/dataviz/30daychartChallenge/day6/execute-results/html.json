@@ -1,0 +1,14 @@
+{
+  "hash": "cd2fe0bb309b51af54d6fd030b330a55",
+  "result": {
+    "markdown": "---\ntitle: \"Day 06\" \ndate: '2022-04-06'\nimage: plots/day6_dcc_22.png\ncategories:\n  - R\n  - Data Viz \n  - ggplot2\n  - Data analysis\ndescription: 'Day 6 form #30dataChartChallenge'\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrarian::shelf(\n  tidyverse\n  , gganimate\n  , gapminder\n  , ggtext\n  # , showtext\n  # , sysfonts\n)\n```\n\n::: {.cell-output .cell-output-stderr}\n```\n\n  The 'cran_repo' argument in shelf() was not set, so it will use\n  cran_repo = 'https://cran.r-project.org' by default.\n\n  To avoid this message, set the 'cran_repo' argument to a CRAN\n  mirror URL (see https://cran.r-project.org/mirrors.html) or set\n  'quiet = TRUE'.\n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\nWarning: package 'gganimate' was built under R version 4.3.1\n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\nWarning: package 'gapminder' was built under R version 4.3.1\n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\nWarning: package 'ggtext' was built under R version 4.3.1\n```\n:::\n\n```{.r .cell-code}\ndata <- 'data/hdidx-corruption.csv' |> \n  read_csv()\n```\n\n::: {.cell-output .cell-output-stderr}\n```\nRows: 55739 Columns: 7\n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (3): Entity, Code, Continent\ndbl (4): Year, Human Development Index (UNDP), Corruption Perception Index -...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n```\n:::\n\n```{.r .cell-code}\ndata |> head()\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n# A tibble: 6 × 7\n  Entity      Code      Year Human Development Index (U…¹ Corruption Perceptio…²\n  <chr>       <chr>    <dbl>                        <dbl>                  <dbl>\n1 Abkhazia    OWID_ABK  2015                       NA                         NA\n2 Afghanistan AFG       1980                        0.228                     NA\n3 Afghanistan AFG       1985                        0.273                     NA\n4 Afghanistan AFG       2002                        0.373                     NA\n5 Afghanistan AFG       2003                        0.383                     NA\n6 Afghanistan AFG       2004                        0.398                     NA\n# ℹ abbreviated names: ¹​`Human Development Index (UNDP)`,\n#   ²​`Corruption Perception Index - Transparency International (2018)`\n# ℹ 2 more variables: `Population (historical estimates)` <dbl>,\n#   Continent <chr>\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
